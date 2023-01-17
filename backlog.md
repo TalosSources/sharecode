@@ -11,4 +11,9 @@ then later if energy
 
 then later if I want to become a startup lol
 - automatise everything, from user payment to computations, object purchasing and integration into the pool
-- make a developped interface where users can specify their need 
+- make a developped interface where users can specify their need and pay for their share of the usage
+
+or maybe function with a more open and trust based approach
+- let users add their own objects by trusting that they wont use it themselves or share it elsewhere
+
+-> In fact we probably need to take the trust based approach, because we cannot prevent users from maliciously reusing the objects when they receive them.
