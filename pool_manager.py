@@ -6,7 +6,7 @@ import time
 Constant values, including the time to wait between two uses of the same object, and the amount of times an object can be used each day.
 """
 class Constants:
-    TIME_BETWEEN_USES = 0.1
+    TIME_BETWEEN_USES = 30 * 60 #30 minutes
     USES_PER_DAY = 5
 
 """
@@ -52,7 +52,7 @@ def print_struct(object_struct):
     for object in object_struct:
         print('{}: {}'.format(object, object_struct[object]))
 
-def get_available_object(object_struct):
+def get_status(object_struct):
     """
     Returns the first available object in object_struct, and adds the current time to its uses list.
     If no object is available, returns None.
@@ -91,8 +91,7 @@ def get_available_object(object_struct):
     # and soonest_time_left is either None, or the time left to wait for the soonest object to be available.
     
     if least_used_available_object is not None:
-        #we use the object
-        object_struct[least_used_available_object].append(current_time)
+        #object_struct[least_used_available_object].append(current_time)
         return least_used_available_object, None
     elif soonest_time_left is not None:
         return None, soonest_time_left
@@ -100,3 +99,9 @@ def get_available_object(object_struct):
         #no object is available for today
         return None, None
     
+
+def use_object(object_struct, object):
+    """
+    Adds the current time to the uses list of object.
+    """
+    object_struct[object].append(time.time())
