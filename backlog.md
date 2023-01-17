@@ -1,6 +1,7 @@
 - send images instead of text
 - build a simple web interface
 - actually host it somewhere
+- change from "giving the object when requested and considering it as used automatically" to "informing that the object is available, and suggesting to fetch it, and if asked to fetch it, then consider it used"
 
 then later if energy
 - refactor it cleanly in src folder and such
