@@ -6,7 +6,7 @@ import time
 Constant values, including the time to wait between two uses of the same object, and the amount of times an object can be used each day.
 """
 class Constants:
-    TIME_BETWEEN_USES = 30 * 60 #30 minutes
+    TIME_BETWEEN_USES = 30 #30 minutes
     USES_PER_DAY = 5
 
 """
@@ -33,6 +33,16 @@ def get_day(time):
     Returns the number of days since the beginning of the epoch.
     """
     return time // (24 * 60 * 60)
+
+def format_time(time):
+    """
+    Formats the time in a readable format by rounding it to an integer and separating the hours, minutes and seconds.
+    """
+    time = int(time)
+    hours = time // (60 * 60)
+    minutes = (time // 60) % 60
+    seconds = time % 60
+    return '{} hours, {} minutes, {} seconds'.format(hours, minutes, seconds)
 
 def build_object_struct(object_path):
     """
@@ -94,7 +104,7 @@ def get_status(object_struct):
         #object_struct[least_used_available_object].append(current_time)
         return least_used_available_object, None
     elif soonest_time_left is not None:
-        return None, soonest_time_left
+        return None, format_time(soonest_time_left)
     else:
         #no object is available for today
         return None, None

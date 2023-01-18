@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Object Status</title>
+</head>
+<body>
+  <h1>Object Status</h1>
+
+  <button id="getStatusBtn">Get Status</button>
+
+  <div id="status"></div>
+
+  <script>
+    const getStatusBtn = document.getElementById("getStatusBtn");
+    const statusDiv = document.getElementById("status");
+
+    getStatusBtn.addEventListener("click", () => {
+      fetch(`/getStatus`)
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "available") {
+            statusDiv.innerHTML = `
+              <p>Object available</p>
+              <button id="requestObjectBtn">Request Object</button>
+            `;
+            document.getElementById("requestObjectBtn").addEventListener("click", () => {
+              // Send request to server to request the object
+                fetch(`/getObject`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                    // if data contains object, display it
+                    if (data.status === 'available') {
+                      if (data.type === 'image') {
+                        statusDiv.innerHTML = `
+                        <p>Object requested : </p> <img src="${data.object}" />
+                        `;
+                      } else if (data.type === 'string') {
+                        statusDiv.innerHTML = `
+                        <p>Object requested : </p> ${data.object}
+                        `;
+                      }
+                    } else if (data.status === 'waiting') {
+                        statusDiv.innerHTML = `
+                        <p>No object available right now, time to wait : </p> : ${data.time_left}
+                        `;
+                    } else if (data.status === 'unavailable') {
+                        statusDiv.innerHTML = `
+                        <p>No object available today</p>
+                        `;
+                    ;}});
+            });
+          } else if (data.status === "waiting") {
+            statusDiv.innerHTML = `
+              <p>Waiting. Time left: ${data.time_left}</p>
+            `;
+          } else if (data.status === "unavailable") {
+            statusDiv.innerHTML = `
+              <p>No more objects available today</p>
+            `;
+          }
+        });
+    });
+  </script>
+</body>
+</html>
