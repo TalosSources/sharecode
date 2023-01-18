@@ -32,7 +32,7 @@ def send_images(path):
 Serves the API. Client sends a POST request asking for an available object.
 The server returns the object, or a time to wait before the first object becomes available.
 """
-@app.route('/getObject', methods=['GET', 'POST'])
+@app.route('/getObject', methods=['POST'])
 def getObject():
     print_struct(object_struct)
     object_name, time_left = get_status(object_struct)
@@ -54,7 +54,7 @@ def getObject():
         #no object is available for today
         return jsonify({'status': 'unavailable'})
 
-@app.route('/getStatus', methods=['GET','POST'])
+@app.route('/getStatus', methods=['POST'])
 def getStatus():
     print_struct(object_struct)
     object_path, time_left = get_status(object_struct)
@@ -69,5 +69,5 @@ local_host = 'localhost'
 lan_host = '146.169.148.56'
 port = 5000
 if __name__ == '__main__':
-    app.run(host=lan_host, port=port)
+    app.run(host=local_host, port=port)
 

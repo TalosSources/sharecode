@@ -15,7 +15,7 @@
     const statusDiv = document.getElementById("status");
 
     getStatusBtn.addEventListener("click", () => {
-      fetch(`/getStatus`)
+      fetch(`/getStatus`, {method: "POST"})
         .then((response) => response.json())
         .then((data) => {
           if (data.status === "available") {
@@ -25,7 +25,7 @@
             `;
             document.getElementById("requestObjectBtn").addEventListener("click", () => {
               // Send request to server to request the object
-                fetch(`/getObject`)
+                fetch(`/getObject`, {method: "POST"})
                     .then((response) => response.json())
                     .then((data) => {
                     // if data contains object, display it
